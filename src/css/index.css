@@ -1,0 +1,51 @@
+/*MAIN SCOPE*/
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #1E2123;
+    margin: 0;
+    padding: 0;
+}
+
+/*FIRST PAGE*/
+#game-menu, #level-intro, #game {
+    width: 100%;
+    height: 100%;
+}
+
+#game-menu {
+    text-align: center;
+    padding-top: 20%;
+}
+
+#game-menu .text {
+    color: #A2ABB1;
+    font-family: Righteous, serif;
+}
+
+#game-menu .title {
+    font-size: 69px;
+}
+
+#game-menu .subtitle {
+    margin-top: 50px;
+    font-size: 24px;
+}
+
+#game-menu .process {
+    border-bottom: 2px dotted #A2ABB1;
+    margin: 50px auto;
+}
+
+/*ANIMATIONS*/
+
+.animated {
+    white-space: nowrap;
+    letter-spacing: .15em;
+    animation: typing 6s steps(60, end) infinite;
+}
+
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
