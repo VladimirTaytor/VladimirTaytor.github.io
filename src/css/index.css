@@ -165,8 +165,8 @@ canvas {
 }
 
 #level-intro .intro-container .intro-boss #intro-boss-icon {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
     border-radius: 2px;
     float: left;
     border: 5px outset rgba(0, 255, 0, 0.3);

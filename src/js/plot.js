@@ -7,7 +7,7 @@ window.Plot = {
         intro: {
             boss: {
                 map: 'src/img/location_1/intro/map.jpg',
-                icon: `src/img/location_1/intro/boss.png`,
+                icon: `src/img/location_1/intro/boss.gif`,
                 text: "Jolly there's nothing like the fine faith stuttering on the ship."
             }
         },
