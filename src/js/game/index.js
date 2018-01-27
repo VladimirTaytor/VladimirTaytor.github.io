@@ -18,6 +18,7 @@ class Game{
   constructor(){
     this.world = [];
     this.map = [];
+    this.transparented = [];
 
     this.game = new Phaser.Game(
       config.window_width,
@@ -38,10 +39,20 @@ class Game{
     this.game.load.image('road:squad', path + '../textures/squad_road.png');
     this.game.load.image('road:triple', path + '../textures/triple_road.png');
 
+    //buildings
+    this.game.load.image('b1', path + '../textures/buildings/b1.png');
+    this.game.load.image('b2', path + '../textures/buildings/b2.png');
+
     this.game.load.image('background', path + '../textures/background.png');
   }
 
   create(){
+
+    this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+    this.playerCollisionGroup = this.physics.p2.createCollisionGroup();
+    this.buildingsCollisionGroup = this.physics.p2.createCollisionGroup();
+
     this.game.add.tileSprite(0, 0, 7680, 5120, 'background');
 
     this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
@@ -53,6 +64,7 @@ class Game{
     let checkBorders = function(x,z){
       return x >= 0 && z >= 0 && x < level.map[0].length && z < level.map.length;
     };
+
     let goFull = function() {
           if (this.game.scale.isFullScreen) {
               this.game.scale.stopFullScreen();
@@ -61,13 +73,17 @@ class Game{
           }
       };
 
+    this.game.world.setBounds(0, 0, 7680, 5120);
+    this.game.physics.startSystem(Phaser.Physics.P2JS);
+
+    this.buildings = [];
 
     for(let i = 0; i < level.map.length; i++){
       for(let j = 0; j < level.map[0].length; j++){
 
         if(typeof level.map[i][j] === 'string'){
           let params = level.map[i][j].split(':');
-          let rotation, sp_name;
+          let rotation = 0, sp_name, anchor = {x: 0.5, y: 0.5};
 
           if(params[0] == 'r'){
             if(params[1] == 'l'){
@@ -76,12 +92,18 @@ class Game{
               sp_name = 'road:rotate';
             }
             rotation = params[2];
+          }else if(params[0] == 'b'){
+            sp_name = params[1];
+            anchor = {x: 0.25, y: 1};
           }
 
-          console.log(i * config.cell_size + 64, j * config.cell_size + 64);
           let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 64, sp_name);
-          p.anchor.setTo(0.5, 0.5);
+          p.anchor.setTo(anchor.x, anchor.y);
           p.angle += rotation;
+
+          if(params[0] == 'b'){
+            this.buildings.push(p);
+          }
         }
       }
     }
@@ -89,8 +111,8 @@ class Game{
     this.player = this.game.add.sprite(100, 200, 'pukich');
 
     this.game.world.setBounds(0, 0, 7680, 5120);
-    this.game.physics.startSystem(Phaser.Physics.P2JS);
     this.game.physics.p2.enable(this.player);
+
     this.player.body.fixedRotation = true;
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
@@ -136,6 +158,21 @@ class Game{
     else if (this.cursors.down.isDown && this.map[Math.floor((this.player.y + 10) / 128)][Math.floor((this.player.x) / 128)] != 0){
       if(!animation_changed) this.player.animations.play('forward', config.animations_speed, false);
       this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
+    }
+
+    var boundsA = this.player.getBounds();
+
+    for(let i = 0; i < this.buildings.length; i++){
+
+      var boundsB = this.buildings[i].getBounds();
+
+      if(Phaser.Rectangle.intersects(boundsA, boundsB)){
+        console.log('loh');
+        this.buildings[i].alpha = 0.4;
+        this.buildings[i].transparented = true;
+      }else if(this.buildings[i].transparented){
+        this.buildings[i].alpha = 1;
+      }
     }
   }
 
