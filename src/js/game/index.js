@@ -25,7 +25,16 @@ class Game{
     //spritesheets
     this.game.load.spritesheet('pukich_backward', path + 'pukich/backward.png', 128, 128, 3);
 
-    //textures
+    // ==== textures ====
+
+    //road
+    this.game.load.image('road:line', path + '../textures/line_road.png');
+    this.game.load.image('road:rotate', path + '../textures/rotate_road.png');
+    this.game.load.image('road:squad', path + '../textures/squad_road.png');
+    this.game.load.image('road:triple', path + '../textures/triple_road.png');
+
+    //
+
     this.game.load.image('background', path + '../textures/background.png');
   }
 
@@ -38,7 +47,7 @@ class Game{
     this.game.physics.p2.enable(this.player);
     this.player.body.fixedRotation = true;
 
-
+    this.generate_level();
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
 
@@ -48,6 +57,18 @@ class Game{
 
     this.player.animations.add('walk');
     this.player.animations.play('walk', config.animations_speed, true);
+  }
+
+  generate_level(){
+
+    let level = first_level;
+
+    for(let i = 0; i < level.map.length; i++){
+      for(let j = 0; j < level.map[0].length; j++){
+        
+      }
+    }
+
   }
 
   update(){
