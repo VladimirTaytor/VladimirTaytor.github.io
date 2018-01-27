@@ -1,11 +1,4 @@
 
-/*
- * message = {
- text: text,
- action: function
-}
- */
-
  function openConversation() {
    const div = document.getElementById('conversation');
    div.style.display = 'block';
@@ -31,25 +24,85 @@
    });
  }
 
-const messages = [{
-  text: "closeConversation()",
-  action: () => closeConversation()
-},
-{
-  text: "message1 2",
-  action: () => console.log("click on message1 2")
-},
-{
-  text: "message1 3",
-  action: () => console.log("click on message1 3")
-}];
-
-renderMessages(messages);
-
-openConversation();
+ function renderDogMessage(message) {
+   document.getElementById('dog-message').innerHTML = message;
+ }
 
 function removeDog() {
 }
 
 function goToLastCheckPoint() {
+  console.log('go back');
 }
+
+/* Conversation 1 */
+function startConversation1() {
+  const phrases = Plot["1"];
+  const messages = [
+    {text: phrases["pukich"]["im_pukich"], action: goToStep1},
+    {text: phrases["pukich"]["im_pizza_man"], action: goToStep2},
+    {text: phrases["pukich"]["im_dog"], action: goToStep3},
+  ];
+
+  renderMessages(messages);
+  renderDogMessage(phrases["dog"]["who_are_you"]);
+  openConversation()
+
+  function goToStep1() {
+    let messages = [
+      {text: phrases["pukich"]["dead"], action: goToLastCheckPoint},
+    ];
+    renderDogMessage(phrases["dog"]["enemy_detected"]);
+    renderMessages(messages);
+  }
+
+  function goToStep2() {
+    let messages;
+    if(items['pizza']) {
+      messages = [
+        {text: phrases["pukich"]["have_pizza"], action: goToStep21}
+      ];
+    } else {
+      messages = [
+        {text: phrases["pukich"]["dont_have_pizza"], action: goToStep22}
+      ];
+    }
+
+    renderMessages(messages);
+    renderDogMessage(phrases["dog"]["hungry"]);
+
+    function goToStep21() {
+      let messages = [
+        {text: phrases["pukich"]["pizza_success"], action: console.log("destroy dog")},
+      ];
+      renderDogMessage(phrases["dog"]["pizza"]);
+      renderMessages(messages);
+    }
+
+    function goToStep22() {
+      let messages = [
+        {text: phrases["pukich"]["dead"], action: goToLastCheckPoint},
+      ];
+      renderDogMessage(phrases["dog"]["no_pizza"]);
+      renderMessages(messages);
+    }
+  }
+
+  function goToStep3() {
+    let messages = [
+      {text: phrases["pukich"]["bark"], action: goToStep31},
+    ];
+    renderDogMessage(phrases["dog"]["not_dog"]);
+    renderMessages(messages);
+
+    function goToStep31() {
+      let messages = [
+        {text: phrases["pukich"]["dead"], action: goToLastCheckPoint},
+      ];
+      renderDogMessage(phrases["dog"]["enemy_detected"]);
+      renderMessages(messages);
+    }
+  }
+}
+
+startConversation1()

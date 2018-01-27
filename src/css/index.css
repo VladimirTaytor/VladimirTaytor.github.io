@@ -66,14 +66,14 @@ body {
 #conversation #display .left-dog {
   position: absolute;
   width: 30%;
-  top: 100px;
-  left: 100px;
+  top: 30%;
+  left: 10%;
 }
 
 #conversation #display .pukich {
   position: absolute;
   width: 20%;
-  top: 100px;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -82,15 +82,8 @@ body {
   transform:scaleX(-1);
   position: absolute;
   width: 30%;
-  top: 100px;
-  right: 100px;
-}
-
-#conversation #display .light {
-  position: absolute;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 30%;
+  right: 10%;
 }
 
 #conversation #messages-list {
@@ -111,7 +104,6 @@ body {
   padding: 15px 10px 15px 50px;
   font-size: 25px;
   font-family: Righteous, serif;
-
   -webkit-transition: font-size 0.1s;
   transition: font-size 0.1s;
 }
@@ -121,6 +113,22 @@ body {
   font-size: 30px;
   padding: 15px 10px 15px 50px;
   color: red;
+}
+
+#conversation #dog-message {
+  padding: 15px 10px 15px 50px;
+  font-size: 25px;
+  font-family: Righteous, serif;
+  width: 20%;
+  height: 100px;
+  position: absolute;
+  left: 60%;
+  top: 5%;
+  background-color: white;
+  border: 5px double black;
+  -moz-box-shadow:    0 0 10px #000000;
+  -webkit-box-shadow: 0 0 10px #000000;
+  box-shadow:         0 0 10px #000000;
 }
 /*LEVEL INTRO*/
 
