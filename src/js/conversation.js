@@ -9,9 +9,9 @@ class Conversation {
     const div = document.getElementById('conversation');
     div.style.display = 'block';
     const display = document.getElementById('display');
-    display.insertAdjacentHTML('beforeend', '<img class="left-dog" src="src/img/location_1/conversation/dog.png" />');
+    display.insertAdjacentHTML('beforeend', '<img class="left-dog" src="src/img/location_1/conversation/dog.gif" />');
     display.insertAdjacentHTML('beforeend', '<img class="pukich" src="src/img/location_1/conversation/pukich.png" />');
-    display.insertAdjacentHTML('beforeend', '<img class="right-dog" src="src/img/location_1/conversation/dog.png" />');
+    display.insertAdjacentHTML('beforeend', '<img class="right-dog" src="src/img/location_1/conversation/dog.gif" />');
   }
 
   closeConversation() {
