@@ -44,6 +44,74 @@ body {
     margin: 50px auto;
 }
 
+#conversation {
+  width: 100%;
+  height: 100vh;
+  background-color: black;
+  display: none;
+}
+
+#conversation #display {
+  width: 70%;
+  height: 85vh;
+  position: relative;
+  margin: auto;
+  background-color: #9DA0A2;
+  -moz-box-shadow:    inset 0 0 20px #000000;
+  -webkit-box-shadow: inset 0 0 20px #000000;
+  box-shadow:         inset 0 0 20px #000000;
+}
+
+#conversation #display .left-dog {
+  position: absolute;
+  width: 30%;
+  top: 100px;
+  left: 100px;
+}
+
+#conversation #display .pukich {
+  position: absolute;
+  width: 20%;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#conversation #display .right-dog {
+  transform:scaleX(-1);
+  position: absolute;
+  width: 30%;
+  top: 100px;
+  right: 100px;
+}
+
+#conversation #messages-list {
+  width: 60%;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 5px double black;
+}
+
+#conversation #messages-list .message {
+  padding: 15px 10px 15px 50px;
+  font-size: 25px;
+  font-family: Righteous, serif;
+
+  -webkit-transition: font-size 0.1s;
+  transition: font-size 0.1s;
+}
+
+#conversation #messages-list .message:hover {
+  cursor: pointer;
+  font-size: 30px;
+  padding: 15px 10px 15px 50px;
+  color: red;
+}
+
 /*ANIMATIONS*/
 
 .animated {
