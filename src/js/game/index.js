@@ -46,13 +46,22 @@ class Game{
   create(){
     this.game.add.tileSprite(0, 0, 7680, 5120, 'background');
 
+    this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
+
     let level = first_level;
     let cells_around = [[0,1], [-1,0], [1,0], [0,-1]];
     console.log(level);
 
     let checkBorders = function(x,z){
       return x >= 0 && z >= 0 && x < level.map[0].length && z < level.map.length;
-    }
+    };
+    let goFull = function() {
+          if (this.game.scale.isFullScreen) {
+              this.game.scale.stopFullScreen();
+          } else {
+              this.game.scale.startFullScreen(false);
+          }
+      };
 
     for(let i = 0; i < level.map.length; i++){
       for(let j = 0; j < level.map[0].length; j++){
@@ -91,15 +100,18 @@ class Game{
 
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
-    //sprites
-
+    // sprites
     this.player.animations.add('left', [0,1,2], 1, true);
     this.player.animations.add('backward', [3,4,5], 1, true);
     this.player.animations.add('right', [6,7,8], 1, true);
     this.player.animations.add('forward', [9,10,11], 1, true);
 
     this.player.animations.play('left', config.animations_speed, true);
+
+    // fullscreen
+    this.game.input.onDown.add(goFull.bind(this), this.game);
   }
+
 
   update(){
 
