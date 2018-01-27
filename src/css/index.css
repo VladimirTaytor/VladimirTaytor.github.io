@@ -7,6 +7,10 @@ body {
     padding: 0;
 }
 
+canvas {
+    margin: 30px auto 0;
+}
+
 /*FIRST PAGE*/
 #game-title, #level-intro, #game {
     width: 100%;
@@ -165,6 +169,7 @@ body {
 #level-intro .controls {
     width: 100%;
     text-align: center;
+    padding-top: 30px;
 }
 
 #level-intro #start-game-button {
@@ -178,6 +183,7 @@ body {
     color: white;
     cursor: pointer;
 }
+
 /*ANIMATIONS*/
 
 .animated {

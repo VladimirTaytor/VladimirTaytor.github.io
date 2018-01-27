@@ -46,8 +46,6 @@ const messages = [{
 
 renderMessages(messages);
 
-openConversation();
-
 function removeDog() {
 }
 

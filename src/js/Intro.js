@@ -30,11 +30,19 @@ class Intro {
 
     loadListeners() {
         document.getElementById('start-game-button')
-            .addEventListener('click', this.startGame);
+            .addEventListener('click', e => this.startGame(e));
+
+        document.addEventListener('keydown', e => {
+            if(e.keyCode === 67 && e.shiftKey) {
+               this.containers.window.style.display = 'none';
+               openConversation();
+           }
+        });
     }
 
     startGame(e) {
         let game = new Game();
+        this.containers.window.style.display = 'none';
         console.log('Start game')
     }
 }
