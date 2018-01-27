@@ -1,5 +1,8 @@
-window.onload = function(){
+/**
+ * @author Vladimir Taytor <cetncat@gmail.com>
+ */
+var intro = new Intro({level:1});
 
-  let game = new Game();
-
-}
+setTimeout(function () {
+    intro.init();
+}, 500);

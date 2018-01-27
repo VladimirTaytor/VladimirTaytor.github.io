@@ -9,29 +9,38 @@
     <link rel="stylesheet" type="text/css" href="src/css/index.css">
 </head>
 <body>
-<div id="game-menu">
+<div id="game-title">
     <div class="text title">Codename Pukich</div>
     <div class="text subtitle">transmission mission</div>
     <div class="text loading">loading
         <div class="process animated"></div>
     </div>
 </div>
-<div id="level-intro">
-
-</div>
-
-<div id="game">
-
-</div>
-
-<div id="conversation">
-  <div id="display">
-    <div id="messages-list">
+<div id="level-intro" style="display: none;">
+    <div class="intro-container">
+        <div class="intro-boss">
+            <img id="intro-boss-icon">
+            <div class="text" id="intro-boss-text"></div>
+        </div>
     </div>
-  </div>
+    <div class="intro-map">
+        <img id="intro-map-icon"/>
+    </div>
+    <div class="controls">
+        <label id="start-game-button">START MISSION</label>
+    </div>
+</div>
+<div id="game" style="display: none;"></div>
+<div id="conversation">
+    <div id="display">
+        <div id="messages-list">
+        </div>
+    </div>
 </div>
 <!--scripts-->
 <script src="src/js/lib/phaser.min.js"></script>
+<script src="src/js/plot.js"></script>
+<script src="src/js/Intro.js"></script>
 <script src="src/js/index.js"></script>
 <script src="src/js/game/index.js"></script>
 <script src="src/js/conversation.js"></script>

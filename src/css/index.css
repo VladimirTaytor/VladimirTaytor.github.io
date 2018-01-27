@@ -8,38 +8,39 @@ body {
 }
 
 /*FIRST PAGE*/
-#game-menu, #level-intro, #game {
+#game-title, #level-intro, #game {
     width: 100%;
     height: 100%;
 }
 
-#game-menu {
+#game-title {
     text-align: center;
     padding-top: 20%;
+    z-index: 1;
 }
 
-#game-menu .text {
+#game-title .text {
     color: #A2ABB1;
     font-family: Righteous, serif;
 }
 
-#game-menu .title {
+#game-title .title {
     font-size: 69px;
 }
 
-#game-menu .subtitle {
+#game-title .subtitle {
     margin-top: 30px;
     font-size: 24px;
     color: darkred;
     font-weight: bolder;
 }
 
-#game-menu .loading {
+#game-title .loading {
     margin-top: 50px;
     font-size: 14px;
 }
 
-#game-menu .process {
+#game-title .process {
     border-bottom: 2px dotted #A2ABB1;
     margin: 50px auto;
 }
@@ -111,7 +112,72 @@ body {
   padding: 15px 10px 15px 50px;
   color: red;
 }
+/*LEVEL INTRO*/
 
+#level-intro {
+    background-color: #1E2123;
+    z-index: 2;
+}
+
+#level-intro .intro-container {
+    margin: 100px auto;
+    margin-bottom: 30px;
+    border-bottom: 2px solid white;
+    padding: 20px 100px 5px 100px;
+    border-top: 2px solid white;
+    overflow: auto;
+}
+
+#level-intro .intro-container .intro-boss {
+    padding: 25px;
+    overflow: hidden;
+}
+
+#level-intro .intro-container .intro-boss #intro-boss-text {
+    font-size: 24px;
+    text-align: left;
+    color: #A2ABB1;
+    margin-left: 50px;
+    float: left;
+    font-family: Righteous, serif;
+}
+
+#level-intro .intro-container .intro-boss #intro-boss-icon {
+    height: 100px;
+    width: 100px;
+    border-radius: 2px;
+    float: left;
+    border: 5px outset rgba(0, 255, 0, 0.3);
+}
+
+#level-intro .intro-map {
+    width: 100%;
+    overflow: auto;
+}
+
+#level-intro .intro-map #intro-map-icon {
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    display: block;
+}
+
+#level-intro .controls {
+    width: 100%;
+    text-align: center;
+}
+
+#level-intro #start-game-button {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: Righteous, serif;
+    color: #A2ABB1;
+}
+
+#level-intro #start-game-button:hover {
+    color: white;
+    cursor: pointer;
+}
 /*ANIMATIONS*/
 
 .animated {
