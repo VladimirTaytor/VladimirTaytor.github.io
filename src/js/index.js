@@ -1,3 +1,6 @@
-/**
- * @author Vladimir Taytor <cetncat@gmail.com>
- */
+window.onload = function(){
+
+  let game = new Game();
+  game.start();
+
+}
