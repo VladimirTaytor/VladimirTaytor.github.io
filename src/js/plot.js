@@ -10,6 +10,7 @@ window.Plot = {
                 icon: `src/img/location_1/intro/boss.png`,
                 text: "Jolly there's nothing like the fine faith stuttering on the ship."
             }
-        }
+        },
+        conversation
     }
 };

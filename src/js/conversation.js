@@ -10,9 +10,9 @@
    const div = document.getElementById('conversation');
    div.style.display = 'block';
    const display = document.getElementById('display');
-   display.insertAdjacentHTML('beforeend', '<img class="left-dog" src="src/sobakarobotzboky/l0_sprite_1.png" />');
-   display.insertAdjacentHTML('beforeend', '<img class="pukich" src="src/sobakarobotzboky/pukich.png" />');
-   display.insertAdjacentHTML('beforeend', '<img class="right-dog" src="src/sobakarobotzboky/l0_sprite_1.png" />');
+   display.insertAdjacentHTML('beforeend', '<img class="left-dog" src="src/img/location_1/conversation/dog.png" />');
+   display.insertAdjacentHTML('beforeend', '<img class="pukich" src="src/img/location_1/conversation/pukich.png" />');
+   display.insertAdjacentHTML('beforeend', '<img class="right-dog" src="src/img/location_1/conversation/dog.png" />');
  }
 
  function closeConversation() {

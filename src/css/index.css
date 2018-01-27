@@ -86,6 +86,13 @@ body {
   right: 100px;
 }
 
+#conversation #display .light {
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 #conversation #messages-list {
   width: 60%;
   height: 200px;
@@ -95,6 +102,9 @@ body {
   transform: translateX(-50%);
   background-color: white;
   border: 5px double black;
+  -moz-box-shadow:    0 0 10px #000000;
+  -webkit-box-shadow: 0 0 10px #000000;
+  box-shadow:         0 0 10px #000000;
 }
 
 #conversation #messages-list .message {
