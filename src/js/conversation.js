@@ -40,7 +40,7 @@ class Conversation {
   }
   /* Conversation 1 */
   startConversation1() {
-    const phrases = Plot["1"];
+    const phrases = Plot["1"]["1"];
     const messages = [{
         text: phrases["pukich"]["im_pukich"],
         action: goToStep1.bind(this)
@@ -120,6 +120,63 @@ class Conversation {
         this.renderDogMessage(phrases["dog"]["enemy_detected"]);
         this.renderMessages(messages);
       }
+    }
+  }
+
+  startConversation2() {
+    const phrases = Plot["1"]["2"];
+    const messages = [{
+        text: phrases["pukich"]["6"],
+        action: goToStep1.bind(this)
+      },
+      {
+          text: phrases["pukich"]["5"],
+          action: goToStep2.bind(this)
+        },
+        {
+            text: phrases["pukich"]["8"],
+            action: goToStep3.bind(this)
+          }
+    ];
+
+    this.renderMessages(messages);
+    this.renderDogMessage(phrases["dog"]["math_question"]);
+    this.openConversation();
+
+    function goToStep1() {
+      let messages = [{
+        text: phrases["pukich"]["dog_wrong"],
+        action: goToStep11.bind(this)
+      }];
+      this.renderDogMessage(phrases["dog"]["wrong_answer"]);
+      this.renderMessages(messages);
+    }
+
+    function goToStep11() {
+      let messages = [{
+        text: phrases["pukich"]["wrong"],
+        action: this.goToLastCheckPoint
+      }];
+      this.renderDogMessage(phrases["dog"]["no"]);
+      this.renderMessages(messages);
+    }
+
+    function goToStep2() {
+      let messages = [{
+        text: phrases["pukich"]["wrong"],
+        action: this.goToLastCheckPoint
+      }];
+      this.renderDogMessage(phrases["dog"]["wrong_answer"]);
+      this.renderMessages(messages);
+    }
+
+    function goToStep3() {
+      let messages = [{
+        text: phrases["pukich"]["right"],
+        action: console.log("destroy dog")
+      }];
+      this.renderDogMessage(phrases["dog"]["right_answer"]);
+      this.renderMessages(messages);
     }
   }
 }

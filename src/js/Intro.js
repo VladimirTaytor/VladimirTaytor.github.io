@@ -36,7 +36,7 @@ class Intro {
             if(e.keyCode === 67 && e.shiftKey) {
                const conversation = new Conversation;
                this.containers.window.style.display = 'none';
-               conversation.startConversation1();
+               conversation.startConversation2();
            }
         });
     }
