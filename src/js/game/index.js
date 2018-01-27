@@ -1,4 +1,4 @@
-const path = 'src/assets/sprites/'
+const path = 'src/assets/sprites/';
 
 const config = {
 
@@ -11,7 +11,7 @@ const config = {
   window_width: 800,
   window_height: 600,
 
-  animations_speed: 4 /* frames per second */
+  animations_speed: 7 /* frames per second */
 }
 
 class Game{
@@ -28,7 +28,7 @@ class Game{
 
   preload(){
     //spritesheets
-    this.game.load.spritesheet('pukich_backward', path + 'pukich/backward.png', 128, 128, 3);
+    this.game.load.spritesheet('pukich', path + 'player.png', 128, 128, 12);
 
     // ==== textures ====
 
@@ -79,8 +79,8 @@ class Game{
         }
       }
     }
-    
-    this.player = this.game.add.sprite(100, 100, 'pukich_backward');
+
+    this.player = this.game.add.sprite(100, 100, 'pukich');
 
     this.game.world.setBounds(0, 0, 7680, 5120);
     this.game.physics.startSystem(Phaser.Physics.P2JS);
@@ -93,27 +93,39 @@ class Game{
 
     //sprites
 
-    this.player.animations.add('walk');
-    this.player.animations.play('walk', config.animations_speed, true);
+    this.player.animations.add('left', [0,1,2], 1, true);
+    this.player.animations.add('backward', [3,4,5], 1, true);
+    this.player.animations.add('right', [6,7,8], 1, true);
+    this.player.animations.add('forward', [9,10,11], 1, true);
+
+    this.player.animations.play('left', config.animations_speed, true);
   }
 
   update(){
 
     this.player.body.setZeroVelocity();
 
-     if (this.cursors.up.isDown){
-         this.player.body.moveUp(config.speed - config.ver_speed_coof * config.speed);
-     }
-     else if (this.cursors.down.isDown){
-         this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
-     }
+    let animation_changed = false;
 
-     if (this.cursors.left.isDown){
-         this.player.body.velocity.x = -config.speed;
-     }
-     else if (this.cursors.right.isDown){
-         this.player.body.moveRight(config.speed);
-     }
+    if (this.cursors.left.isDown){
+      animation_changed = true;
+      this.player.animations.play('left', config.animations_speed, false);
+      this.player.body.velocity.x = -config.speed;
+    }
+    else if (this.cursors.right.isDown){
+      animation_changed = true
+      this.player.animations.play('right', config.animations_speed, false);
+      this.player.body.moveRight(config.speed);
+    }
+
+    if (this.cursors.up.isDown){
+      if(!animation_changed) this.player.animations.play('backward', config.animations_speed, false);
+      this.player.body.moveUp(config.speed - config.ver_speed_coof * config.speed);
+    }
+    else if (this.cursors.down.isDown){
+      if(!animation_changed) this.player.animations.play('forward', config.animations_speed, false);
+      this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
+    }
   }
 
   start(){
