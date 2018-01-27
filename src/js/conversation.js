@@ -1,4 +1,9 @@
 class Conversation {
+
+  constructor() {
+      MusicInterface.play(MUSIC_NAMES.INMATE);
+  }
+
   removeDog() {}
 
   goToLastCheckPoint() {
@@ -118,6 +123,3 @@ class Conversation {
     }
   }
 }
-
-const conversation = new Conversation;
-conversation.startConversation1();

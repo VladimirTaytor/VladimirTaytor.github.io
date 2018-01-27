@@ -24,6 +24,8 @@ class Game{
       config.winodw_height,
       Phaser.AUTO,
       'peluh_loh', { preload: this.preload, create: this.create, update: this.update });
+
+      MusicInterface.play(MUSIC_NAMES.IN_GAME);
   }
 
   preload(){

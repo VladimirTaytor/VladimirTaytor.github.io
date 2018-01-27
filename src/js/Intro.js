@@ -34,8 +34,9 @@ class Intro {
 
         document.addEventListener('keydown', e => {
             if(e.keyCode === 67 && e.shiftKey) {
+               const conversation = new Conversation;
                this.containers.window.style.display = 'none';
-               openConversation();
+               conversation.startConversation1();
            }
         });
     }
