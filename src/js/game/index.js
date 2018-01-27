@@ -18,6 +18,7 @@ class Game{
   constructor(){
     this.world = [];
     this.map = [];
+    this.mov_map = [];
     this.transparented = [];
 
     this.game = new Phaser.Game(
@@ -50,6 +51,8 @@ class Game{
 
     this.game.physics.startSystem(Phaser.Physics.P2JS);
 
+    this.group = this.game.add.group();
+
     this.playerCollisionGroup = this.physics.p2.createCollisionGroup();
     this.buildingsCollisionGroup = this.physics.p2.createCollisionGroup();
 
@@ -59,6 +62,7 @@ class Game{
 
     let level = first_level;
     this.map = level.map;
+    this.mov_map = level.mov_map;
     let cells_around = [[0,1], [-1,0], [1,0], [0,-1]];
 
     let checkBorders = function(x,z){
@@ -92,23 +96,25 @@ class Game{
               sp_name = 'road:rotate';
             }
             rotation = params[2];
+
+            let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 64, sp_name);
+            p.anchor.setTo(anchor.x, anchor.y);
+            p.angle += rotation;
+
           }else if(params[0] == 'b'){
-            sp_name = params[1];
-            anchor = {x: 0.25, y: 1};
-          }
 
-          let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 64, sp_name);
-          p.anchor.setTo(anchor.x, anchor.y);
-          p.angle += rotation;
+            let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 128, params[1]);
+            p.anchor.setTo(0.25, 1);
 
-          if(params[0] == 'b'){
             this.buildings.push(p);
+            this.group.add(p);
           }
         }
       }
     }
 
     this.player = this.game.add.sprite(100, 200, 'pukich');
+    this.group.add(this.player);
 
     this.game.world.setBounds(0, 0, 7680, 5120);
     this.game.physics.p2.enable(this.player);
@@ -117,6 +123,8 @@ class Game{
 
     this.cursors = this.game.input.keyboard.createCursorKeys();
     this.player.anchor.set(0.5, 1);
+
+    this.group.sort();
 
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_LOCKON, 0.1, 0.1);
 
@@ -140,22 +148,22 @@ class Game{
 
     let animation_changed = false;
 
-    if(this.cursors.left.isDown && this.map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x - 25) / 128)] != 0){
+    if(this.cursors.left.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x - 25) / 128)] != 0){
       animation_changed = true;
       this.player.animations.play('left', config.animations_speed, false);
       this.player.body.velocity.x = -config.speed;
     }
-    else if (this.cursors.right.isDown && this.map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x + 25) / 128)] != 0){
+    else if (this.cursors.right.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x + 25) / 128)] != 0){
       animation_changed = true
       this.player.animations.play('right', config.animations_speed, false);
       this.player.body.moveRight(config.speed);
     }
 
-    if (this.cursors.up.isDown && this.map[Math.floor((this.player.y - 20) / 128)][Math.floor((this.player.x) / 128)] != 0){
+    if (this.cursors.up.isDown && this.mov_map[Math.floor((this.player.y - 20) / 128)][Math.floor((this.player.x) / 128)] != 0){
       if(!animation_changed) this.player.animations.play('backward', config.animations_speed, false);
       this.player.body.moveUp(config.speed - config.ver_speed_coof * config.speed);
     }
-    else if (this.cursors.down.isDown && this.map[Math.floor((this.player.y + 10) / 128)][Math.floor((this.player.x) / 128)] != 0){
+    else if (this.cursors.down.isDown && this.mov_map[Math.floor((this.player.y + 10) / 128)][Math.floor((this.player.x) / 128)] != 0){
       if(!animation_changed) this.player.animations.play('forward', config.animations_speed, false);
       this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
     }
@@ -166,14 +174,17 @@ class Game{
 
       var boundsB = this.buildings[i].getBounds();
 
-      if(Phaser.Rectangle.intersects(boundsA, boundsB)){
-        console.log('loh');
-        this.buildings[i].alpha = 0.4;
+      if(Phaser.Rectangle.intersects(boundsA, boundsB) && this.player.y < this.buildings[i].y){
+        this.buildings[i].alpha = 0.65;
         this.buildings[i].transparented = true;
       }else if(this.buildings[i].transparented){
         this.buildings[i].alpha = 1;
       }
     }
+
+    this.game.world.bringToTop(this.group);
+
+    this.group.sort('y', Phaser.Group.SORT_ASCENDING);
   }
 
   start(){
