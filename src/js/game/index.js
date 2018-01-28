@@ -44,12 +44,26 @@ class Game{
     this.game.load.image('road:squad', path + '../textures/squad_road.png');
     this.game.load.image('road:triple', path + '../textures/triple_road.png');
 
+    //fences
+
+    this.game.load.image('f1', path + '../textures/fence1.png');
+
+    //trees
+
+    this.game.load.image('t1', path + '../textures/tree1.png');
+
     //enemies
     this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 4);
 
     //buildings
     this.game.load.image('b1', path + '../textures/buildings/b1.png');
     this.game.load.image('b2', path + '../textures/buildings/b2.png');
+    this.game.load.image('b3', path + '../textures/buildings/b3.png');
+    this.game.load.image('b4', path + '../textures/buildings/b4.png');
+
+    //gates
+
+    this.game.load.image('g1', path + '../textures/gate1.png');
 
     this.game.load.image('background', path + '../textures/background.png');
   }
@@ -102,10 +116,17 @@ class Game{
           if(params[0] == 'r'){
             if(params[1] == 'l'){
               sp_name = 'road:line';
+              rotation = params[2];
             }else if(params[1] == 'r'){
               sp_name = 'road:rotate';
+              rotation = params[2];
             }
-            rotation = params[2];
+            else if(params[1] == 't'){
+              sp_name = 'road:triple';
+              rotation = params[2];
+            }else if(params[1] == 's'){
+              sp_name = 'road:squad';
+            }
 
             let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 64, sp_name);
             p.anchor.setTo(anchor.x, anchor.y);
@@ -204,7 +225,6 @@ class Game{
       let enemy = this.enemies[i];
 
       if(Math.sqrt(Math.pow(this.player.x - enemy.x, 2) + Math.pow(this.player.y - enemy.y, 2)) <= config.enemy_range){
-        document.getElementsByTagName('canvas')[0].style.display = 'none';
         this.conversation = new Conversation;
         this.conversation.startConversation1(enemy.unique_id);
       }
