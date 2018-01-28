@@ -2,7 +2,8 @@ const path    = 'src/assets/sprites/';
 var in_conversation = false;
 var enemies = [];
 var playerr;
-var picked = false;
+var gitems = [];
+var picked = [false, false];
 const config  = {
 
   cell_size: 128,
@@ -43,6 +44,7 @@ class Game{
     // ==== textures ====
 
     this.game.load.image('item', path + '../textures/item.png');
+    this.game.load.image('item2', path + '../textures/item2.png');
 
     //road
     this.game.load.image('road:line', path + '../textures/line_road.png');
@@ -213,7 +215,10 @@ class Game{
     playerr = this.game.add.sprite(100, 300, 'pukich');
     this.group.add(playerr);
 
-    this.item = this.game.add.sprite(750, 128, 'item');
+    gitems = [];
+
+    gitems.push(this.game.add.sprite(750, 128, 'item'));
+    gitems.push(this.game.add.sprite(780, 128, 'item2'));
 
     this.game.world.setBounds(0, 0, 3840, 1920);
     this.game.physics.p2.enable(playerr);
@@ -312,22 +317,32 @@ class Game{
         }
       }
 
-      if(this.item && !picked){
-        var boundsC = this.item.getBounds();
-        if(Phaser.Rectangle.intersects(boundsA, boundsC)){
-          this.bar.visible = true;
-          this.text.visible = true;
+      for(let i = 0; i < gitems.length; i++){
+        let item = gitems[i];
 
-          if(this.keyf.isDown){
-            items.pizza = true;
-            this.item.kill();
-            picked = true;
+        if(item && !picked[i]){
+          var boundsC = item.getBounds();
+          if(Phaser.Rectangle.intersects(boundsA, boundsC)){
+            this.bar.visible = true;
+            this.text.visible = true;
+
+            if(this.keyf.isDown){
+              if(i == 0){
+                items.pizza = true;
+              }else if(i == 1){
+                items.snake = true;
+              }
+              item.kill();
+              gitems.splice(i, 1);
+              picked[i] = true;
+              picked.splice(i, 1);
+              this.bar.visible = false;
+              this.text.visible = false;
+            }
+          }else{
             this.bar.visible = false;
             this.text.visible = false;
           }
-        }else{
-          this.bar.visible = false;
-          this.text.visible = false;
         }
       }
 
