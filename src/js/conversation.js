@@ -163,7 +163,7 @@ class Conversation {
 
     function goToStep2() {
       let messages = [{
-        text: phrases["pukich"]["wrong"],
+        text: phrases["pukich"]["wrong5"],
         action: this.goToLastCheckPoint
       }];
       this.renderDogMessage(phrases["dog"]["wrong_answer"]);
@@ -176,6 +176,43 @@ class Conversation {
         action: console.log("destroy dog")
       }];
       this.renderDogMessage(phrases["dog"]["right_answer"]);
+      this.renderMessages(messages);
+    }
+  }
+
+  startConversation3() {
+    const phrases = Plot["1"]["3"];
+    const messages = [{
+        text: phrases["pukich"]["yes"],
+        action: goToStep1.bind(this)
+      },
+      {
+        text: phrases["pukich"]["no"],
+        action: goToStep2.bind(this)
+      }
+    ];
+
+    this.renderMessages(messages);
+    this.renderDogMessage(phrases["dog"]["snake"]);
+    this.openConversation();
+
+    function goToStep1() {
+      let messages = [{
+        text: phrases["pukich"]["snake"],
+        action: console.log("destroy dog")
+      }];
+      this.renderDogMessage(phrases["dog"]["dead"]);
+      this.renderMessages(messages);
+
+      document.getElementsByClassName('right-dog')[0].src = 'src/img/location_1/conversation/shocked_dog.png'
+    }
+
+    function goToStep2() {
+      let messages = [{
+        text: phrases["pukich"]["no_snake"],
+        action: console.log("destroy dog")
+      }];
+      this.renderDogMessage(phrases["dog"]["no_snake"]);
       this.renderMessages(messages);
     }
   }

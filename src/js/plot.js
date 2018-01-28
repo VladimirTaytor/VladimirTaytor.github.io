@@ -45,7 +45,21 @@ window.Plot = {
             5: "5",
             dog_wrong: "No, you're wrong",
             wrong: "*You are rigth but dead. Press to continue*",
-            right: "*You are wrong but alive. Press to continue*"
+            right: "*You are wrong but alive. Press to continue*",
+            wrong5: "*You are wrong and dead. Press to continue*"
+          }
+        },
+        3: {
+          dog: {
+            snake: "Do you have snake?",
+            dead: "*shoked*",
+            no_snake: "Nice, I don't like them"
+          },
+          pukich: {
+            yes: "Yes",
+            no: "No",
+            snake: "*Press to pass dog*",
+            no_snake: "*Press to pass dog*"
           }
         }
     }
