@@ -2,6 +2,7 @@ class Conversation {
 
   constructor() {
       MusicInterface.play(MUSIC_NAMES.INMATE);
+      game_dont_touch.scale.stopFullScreen();
   }
 
   destroyDog(id) {
