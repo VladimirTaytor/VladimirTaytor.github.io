@@ -202,6 +202,43 @@ canvas {
     cursor: pointer;
 }
 
+#congratulations-screen {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+#congratulations-screen .intro-container {
+    margin: 100px auto;
+    margin-bottom: 30px;
+    border-bottom: 2px solid white;
+    padding: 20px 100px 5px 100px;
+    border-top: 2px solid white;
+    overflow: auto;
+}
+
+#congratulations-screen .intro-container .intro-boss {
+    padding: 25px;
+    overflow: hidden;
+}
+
+#congratulations-screen .intro-container .intro-boss #intro-boss-text-pelykh {
+    font-size: 24px;
+    text-align: left;
+    color: #A2ABB1;
+    margin-left: 50px;
+    float: left;
+    font-family: Righteous, serif;
+}
+
+#congratulations-screen .intro-container .intro-boss #intro-boss-icon-pelykh {
+    height: 200px;
+    width: 200px;
+    border-radius: 2px;
+    float: left;
+    border: 5px outset rgba(0, 255, 0, 0.3);
+}
+
 /*ANIMATIONS*/
 
 .animated {
