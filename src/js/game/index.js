@@ -7,6 +7,8 @@ const config  = {
   speed: 300,
   ver_speed_coof: 0.4,
 
+  enemy_range: 150,
+
   window_width: 800,
   window_height: 600,
 
@@ -42,6 +44,9 @@ class Game{
     this.game.load.image('road:squad', path + '../textures/squad_road.png');
     this.game.load.image('road:triple', path + '../textures/triple_road.png');
 
+    //enemies
+    this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 4);
+
     //buildings
     this.game.load.image('b1', path + '../textures/buildings/b1.png');
     this.game.load.image('b2', path + '../textures/buildings/b2.png');
@@ -50,6 +55,8 @@ class Game{
   }
 
   create(){
+
+    let dogs_id = 1;
 
     this.game.physics.startSystem(Phaser.Physics.P2JS);
 
@@ -83,6 +90,7 @@ class Game{
     this.game.physics.startSystem(Phaser.Physics.P2JS);
 
     this.buildings = [];
+    this.enemies = [];
 
     for(let i = 0; i < level.map.length; i++){
       for(let j = 0; j < level.map[0].length; j++){
@@ -113,6 +121,27 @@ class Game{
           }
         }
       }
+    }
+
+    console.log(level.enemies);
+
+    for(let i = 0; i < level.enemies.length; i++){
+
+      console.log('add enemy');
+
+      let enemy_raw = level.enemies[i];
+
+      let enemy = this.game.add.sprite(enemy_raw.trajectory[i][0] * config.cell_size + 64, enemy_raw.trajectory[i][1] * config.cell_size + 64, enemy_raw.name);
+
+      enemy.anchor.setTo(0.5, 0.5);
+
+      enemy.animations.add('move', [0,1,2,3], 1, true);
+      enemy.play('move', config.animations_speed, true);
+      enemy.unique_id = dogs_id;
+      dogs_id++;
+
+      this.enemies.push(enemy);
+      this.group.add(enemy);
     }
 
     this.player = this.game.add.sprite(100, 200, 'pukich');
@@ -170,6 +199,17 @@ class Game{
       this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
     }
 
+    for(let i = 0; i < this.enemies.length; i++){
+
+      let enemy = this.enemies[i];
+
+      if(Math.sqrt(Math.pow(this.player.x - enemy.x, 2) + Math.pow(this.player.y - enemy.y, 2)) <= config.enemy_range){
+        document.getElementsByTagName('canvas')[0].style.display = 'none';
+        this.conversation = new Conversation;
+        this.conversation.startConversation1(enemy.unique_id);
+      }
+    }
+
     var boundsA = this.player.getBounds();
 
     for(let i = 0; i < this.buildings.length; i++){
@@ -187,6 +227,15 @@ class Game{
     this.game.world.bringToTop(this.group);
 
     this.group.sort('y', Phaser.Group.SORT_ASCENDING);
+  }
+
+  destroyDog(id){
+    for(let i = 0; i < this.enemies.length; i++){
+      if(this.enemies[i].unique_id == id){
+        this.enemies[i].kill();
+        this.enemies.splice(i, 1);
+      }
+    }
   }
 
   start(){

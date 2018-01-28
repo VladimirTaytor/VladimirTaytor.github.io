@@ -32,7 +32,7 @@ var first_level = {
     ],
   },
   enemies: [
-    { trajectory: [[2,2], [2,3], [2,4], [2,5]], path: '' }
+    { trajectory: [[4,5], [4,6], [4,7], [4,8]], name: 'sobaka1' }
   ],
   items: [
     { path: '', name: 'govno' }

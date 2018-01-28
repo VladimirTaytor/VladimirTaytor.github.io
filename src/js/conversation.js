@@ -39,8 +39,8 @@ class Conversation {
     document.getElementById('dog-message').innerHTML = message;
   }
   /* Conversation 1 */
-  startConversation1() {
-    const phrases = Plot["1"]["1"];
+  startConversation1(dog_id) {
+    const phrases = Plot["1"];
     const messages = [{
         text: phrases["pukich"]["im_pukich"],
         action: goToStep1.bind(this)
