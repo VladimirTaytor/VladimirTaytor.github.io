@@ -143,6 +143,19 @@ class Game{
             this.buildings.push(p);
             this.group.add(p);
           }
+          else if(params[0] == 'g1'){
+            let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 128, params[0]);
+            p.anchor.setTo(0.25, 1);
+
+            this.buildings.push(p);
+            this.group.add(p);
+          }else if(params[0] == 't1' || params[0] == 'f1'){
+            let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 128, params[0]);
+            p.anchor.setTo(0.5, 1);
+
+            this.buildings.push(p);
+            this.group.add(p);
+          }
         }
       }
     }
