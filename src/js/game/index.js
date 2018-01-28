@@ -2,6 +2,7 @@ const path    = 'src/assets/sprites/';
 var in_conversation = false;
 var enemies = [];
 var playerr;
+var picked = false;
 const config  = {
 
   cell_size: 128,
@@ -58,10 +59,10 @@ class Game{
     this.game.load.image('t1', path + '../textures/tree1.png');
 
     //enemies
-    this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 4);
+    this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 8);
 
     //buildings
-    for(let i = 1; i <= 10; i++){
+    for(let i = 1; i < 10; i++){
       this.game.load.image('b' + i, path + '../textures/buildings/b' + i + '.png');
     }
     //gates
@@ -180,7 +181,7 @@ class Game{
 
       enemy.anchor.setTo(0.5, 0.5);
 
-      enemy.animations.add('move', [0,1,2,3], 1, true);
+      enemy.animations.add('move', [0,1,2,3,4,5,6,7], 1, true);
       enemy.play('move', config.animations_speed, true);
       enemy.unique_id = dogs_id;
       dogs_id++;
@@ -193,17 +194,19 @@ class Game{
 
     this.bar = this.game.add.graphics();
     this.bar.beginFill(0x000000, 0.2);
-    this.bar.drawRect(0, 100, 800, 100);
+    this.bar.drawRect(0, 500, 800, 100);
+
+    var style = { font: "32px Righteous", fill: "white" , align: 'center'};
 
     this.text = this.game.add.text(0, 0, "Press f to pick up", style);
     this.text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
-    this.text.setTextBounds(0, 100, 800, 100);
+    this.text.setTextBounds(0, 500, 800, 100);
     this.bar.fixedToCamera = true;
     this.text.fixedToCamera = true;
     this.bar.visible = false;
     this.text.visible = false;
 
-    var style = { font: "bold 32px Arial", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
+
 
     //=====
 
@@ -214,6 +217,8 @@ class Game{
 
     this.game.world.setBounds(0, 0, 3840, 1920);
     this.game.physics.p2.enable(playerr);
+
+    this.keyf = this.game.input.keyboard.addKey(Phaser.Keyboard.F);
 
     playerr.body.fixedRotation = true;
 
@@ -242,12 +247,9 @@ class Game{
 
     if(!in_conversation){
 
-      console.log(Math.floor(playerr.y / 128), Math.floor(playerr.x / 128));
-
       if(Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
-        console.log('WIN')
+        document.getElementById('congratulations-screen').style.display = 'block';
       }
-
 
       playerr.body.setZeroVelocity();
 
@@ -310,15 +312,16 @@ class Game{
         }
       }
 
-      if(this.item){
+      if(this.item && !picked){
         var boundsC = this.item.getBounds();
         if(Phaser.Rectangle.intersects(boundsA, boundsC)){
           this.bar.visible = true;
           this.text.visible = true;
 
-          if(this.game.input.keyboard.addKey(Phaser.Keyboard.F)){
+          if(this.keyf.isDown){
             items.pizza = true;
             this.item.kill();
+            picked = true;
             this.bar.visible = false;
             this.text.visible = false;
           }
