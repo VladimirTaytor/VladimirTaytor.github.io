@@ -1,9 +1,5 @@
 class Conversation {
 
-  constructor() {
-      MusicInterface.play(MUSIC_NAMES.INMATE);
-  }
-
   destroyDog(id) {
     game_dont_touch.destroyDog(id);
     closeConversation();
@@ -19,6 +15,9 @@ class Conversation {
     const div = document.getElementById('conversation');
     div.style.display = 'block';
     const display = document.getElementById('display');
+    Array.from(display.querySelectorAll('img'))
+        .forEach(img => img.remove());
+    MusicInterface.play(MUSIC_NAMES.INMATE);
     display.insertAdjacentHTML('beforeend', '<img class="left-dog" src="src/img/location_1/conversation/dog.gif" />');
     display.insertAdjacentHTML('beforeend', '<img class="pukich" src="src/img/location_1/conversation/pukich.png" />');
     display.insertAdjacentHTML('beforeend', '<img class="right-dog" src="src/img/location_1/conversation/dog.gif" />');
