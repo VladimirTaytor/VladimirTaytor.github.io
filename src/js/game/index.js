@@ -64,7 +64,7 @@ class Game{
     this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 8);
 
     //buildings
-    for(let i = 1; i < 10; i++){
+    for(let i = 1; i <= 12; i++){
       this.game.load.image('b' + i, path + '../textures/buildings/b' + i + '.png');
     }
     //gates
@@ -255,7 +255,8 @@ class Game{
       if(enemies.length == 0 && Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
         let finish_time = new Date();
         let points = finish_time - start_time / 10000;
-        document.getElementById('points').innerHTML = Math.round(points);
+        document.getElementById('points').innerHTML = `${Math.round(points / 100000000)} points`;
+        document.getElementsByTagName('canvas')[0].style.display = 'none';
         document.getElementById('congratulations-screen').style.display = 'block';
         in_conversation = true;
       }

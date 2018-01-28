@@ -70,18 +70,18 @@ canvas {
 #conversation #display .left-dog {
   position: absolute;
   width: 30%;
-  top: 30%;
+  top: 25%;
   left: 10%;
-  z-index: -1;
+  z-index: 5;
 }
 
 #conversation #display .pukich {
   position: absolute;
   width: 20%;
-  top: 30%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  z-index: -1;
+  z-index: 5;
 }
 
 #conversation #display .right-dog {
@@ -90,7 +90,7 @@ canvas {
   width: 30%;
   top: 30%;
   right: 10%;
-  z-index: -1;
+  z-index: 5;
 }
 
 #conversation #messages-list {
@@ -236,6 +236,11 @@ canvas {
     margin-left: 50px;
     float: left;
     font-family: Righteous, serif;
+}
+
+#points {
+    color: darkred;
+    font-weight: bolder;
 }
 
 #congratulations-screen .intro-container .intro-boss #intro-boss-icon-pelykh {
