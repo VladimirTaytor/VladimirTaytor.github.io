@@ -30,4 +30,4 @@ const MusicInterface = {
 
 setTimeout(function () {
     intro.init();
-}, 500);
+}, 4000);
