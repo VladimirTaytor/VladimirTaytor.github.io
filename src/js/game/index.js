@@ -217,8 +217,8 @@ class Game{
 
     gitems = [];
 
-    gitems.push(this.game.add.sprite(750, 128, 'item'));
-    gitems.push(this.game.add.sprite(780, 128, 'item2'));
+    gitems.push(this.game.add.sprite(1860, 580, 'item'));
+    gitems.push(this.game.add.sprite(828, 180, 'item2'));
 
     this.game.world.setBounds(0, 0, 3840, 1920);
     this.game.physics.p2.enable(playerr);
@@ -273,9 +273,9 @@ class Game{
         if(Math.sqrt(Math.pow(playerr.x - enemy.x, 2) + Math.pow(playerr.y - enemy.y, 2)) <= config.enemy_range){
           in_conversation = true;
 
-          if(enemy.unique_id == 1){
+          if(enemy.unique_id == 2){
             this.conversation.startConversation1(enemy.unique_id);
-          }else if(enemy.unique_id == 2){
+          }else if(enemy.unique_id == 1){
             this.conversation.startConversation2(enemy.unique_id);
           }else if(enemy.unique_id == 3){
             this.conversation.startConversation3(enemy.unique_id);

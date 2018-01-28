@@ -57,9 +57,9 @@ var first_level = {
     ],
   },
   enemies: [
-    { trajectory: [3,6], name: 'sobaka1' },
-    { trajectory: [4,6], name: 'sobaka1' },
-    { trajectory: [5,6], name: 'sobaka1' }
+    { trajectory: [6,4], name: 'sobaka1' },
+    { trajectory: [24,6], name: 'sobaka1' },
+    { trajectory: [28,13], name: 'sobaka1' }
   ],
   items: [
     { path: '', name: 'govno' }
