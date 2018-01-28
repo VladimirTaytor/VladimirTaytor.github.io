@@ -59,11 +59,9 @@ class Game{
     this.game.load.spritesheet('sobaka1', path + 'sobaka.png', 128, 128, 4);
 
     //buildings
-    this.game.load.image('b1', path + '../textures/buildings/b1.png');
-    this.game.load.image('b2', path + '../textures/buildings/b2.png');
-    this.game.load.image('b3', path + '../textures/buildings/b3.png');
-    this.game.load.image('b4', path + '../textures/buildings/b4.png');
-
+    for(let i = 1; i <= 10; i++){
+      this.game.load.image('b' + i, path + '../textures/buildings/b' + i + '.png');
+    }
     //gates
 
     this.game.load.image('g1', path + '../textures/gate1.png');
