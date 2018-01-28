@@ -41,6 +41,8 @@ class Game{
 
     // ==== textures ====
 
+    this.game.load.image('item', path + '../textures/item.png');
+
     //road
     this.game.load.image('road:line', path + '../textures/line_road.png');
     this.game.load.image('road:rotate', path + '../textures/rotate_road.png');
@@ -153,6 +155,12 @@ class Game{
             let p = this.game.add.image(j * config.cell_size + 64, i * config.cell_size + 128, params[0]);
             p.anchor.setTo(0.5, 1);
 
+            let rand = Math.round(Math.random(1));
+
+            if(rand){
+              p.scale.x *= -1;
+            }
+
             this.buildings.push(p);
             this.group.add(p);
           }
@@ -181,10 +189,30 @@ class Game{
       this.group.add(enemy);
     }
 
+    //======= text label
+
+    this.bar = this.game.add.graphics();
+    this.bar.beginFill(0x000000, 0.2);
+    this.bar.drawRect(0, 100, 800, 100);
+
+    this.text = this.game.add.text(0, 0, "Press f to pick up", style);
+    this.text.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2);
+    this.text.setTextBounds(0, 100, 800, 100);
+    this.bar.fixedToCamera = true;
+    this.text.fixedToCamera = true;
+    this.bar.visible = false;
+    this.text.visible = false;
+
+    var style = { font: "bold 32px Arial", fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
+
+    //=====
+
     playerr = this.game.add.sprite(100, 300, 'pukich');
     this.group.add(playerr);
 
-    this.game.world.setBounds(0, 0, 7680, 5120);
+    this.item = this.game.add.sprite(750, 128, 'item');
+
+    this.game.world.setBounds(0, 0, 3840, 1920);
     this.game.physics.p2.enable(playerr);
 
     playerr.body.fixedRotation = true;
@@ -213,6 +241,14 @@ class Game{
   update(){
 
     if(!in_conversation){
+
+      console.log(Math.floor(playerr.y / 128), Math.floor(playerr.x / 128));
+
+      if(Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
+        console.log('WIN')
+      }
+
+
       playerr.body.setZeroVelocity();
 
       let animation_changed = false;
@@ -271,6 +307,24 @@ class Game{
           this.buildings[i].transparented = true;
         }else if(this.buildings[i].transparented){
           this.buildings[i].alpha = 1;
+        }
+      }
+
+      if(this.item){
+        var boundsC = this.item.getBounds();
+        if(Phaser.Rectangle.intersects(boundsA, boundsC)){
+          this.bar.visible = true;
+          this.text.visible = true;
+
+          if(this.game.input.keyboard.addKey(Phaser.Keyboard.F)){
+            items.pizza = true;
+            this.item.kill();
+            this.bar.visible = false;
+            this.text.visible = false;
+          }
+        }else{
+          this.bar.visible = false;
+          this.text.visible = false;
         }
       }
 
