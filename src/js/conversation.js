@@ -4,10 +4,15 @@ class Conversation {
       MusicInterface.play(MUSIC_NAMES.INMATE);
   }
 
-  removeDog() {}
+  destroyDog(id) {
+    game_dont_touch.destroyDog(id);
+    closeConversation();
+    MusicInterface.play(MUSIC_NAMES.IN_GAME);
+  }
 
   goToLastCheckPoint() {
     console.log('go back');
+    MusicInterface.play(MUSIC_NAMES.IN_GAME);
   }
 
   openConversation() {
@@ -40,7 +45,7 @@ class Conversation {
   }
   /* Conversation 1 */
   startConversation1(dog_id) {
-    const phrases = Plot["1"];
+    const phrases = Plot["1"]["1"];
     const messages = [{
         text: phrases["pukich"]["im_pukich"],
         action: goToStep1.bind(this)
@@ -88,7 +93,7 @@ class Conversation {
       function goToStep21() {
         let messages = [{
           text: phrases["pukich"]["pizza_success"],
-          action: console.log("destroy dog")
+          action: () => this.destroyDog(dog_id)
         }, ];
         this.renderDogMessage(phrases["dog"]["pizza"]);
         this.renderMessages(messages);
@@ -123,7 +128,7 @@ class Conversation {
     }
   }
 
-  startConversation2() {
+  startConversation2(dog_id) {
     const phrases = Plot["1"]["2"];
     const messages = [{
         text: phrases["pukich"]["6"],
@@ -173,14 +178,14 @@ class Conversation {
     function goToStep3() {
       let messages = [{
         text: phrases["pukich"]["right"],
-        action: console.log("destroy dog")
+        action: () => this.destroyDog(dog_id)
       }];
       this.renderDogMessage(phrases["dog"]["right_answer"]);
       this.renderMessages(messages);
     }
   }
 
-  startConversation3() {
+  startConversation3(dog_id) {
     const phrases = Plot["1"]["3"];
     const messages = [{
         text: phrases["pukich"]["yes"],
@@ -199,7 +204,7 @@ class Conversation {
     function goToStep1() {
       let messages = [{
         text: phrases["pukich"]["snake"],
-        action: console.log("destroy dog")
+        action: () => this.destroyDog(dog_id)
       }];
       this.renderDogMessage(phrases["dog"]["dead"]);
       this.renderMessages(messages);
@@ -210,7 +215,7 @@ class Conversation {
     function goToStep2() {
       let messages = [{
         text: phrases["pukich"]["no_snake"],
-        action: console.log("destroy dog")
+        action: () => this.destroyDog(dog_id)
       }];
       this.renderDogMessage(phrases["dog"]["no_snake"]);
       this.renderMessages(messages);
