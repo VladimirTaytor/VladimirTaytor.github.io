@@ -254,7 +254,7 @@ class Game{
 
       if(enemies.length == 0 && Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
         let finish_time = new Date();
-        points = finish_time - start_time / 10000;
+        let points = finish_time - start_time / 10000;
         document.getElementById('points').innerHTML = Math.round(points);
         document.getElementById('congratulations-screen').style.display = 'block';
         in_conversation = true;
