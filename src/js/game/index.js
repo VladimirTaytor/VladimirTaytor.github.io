@@ -247,8 +247,12 @@ class Game{
 
     if(!in_conversation){
 
-      if(Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
+      if(enemies.length == 0 && Math.floor(playerr.y / 128) == 9 && Math.floor(playerr.x / 128) == 29){
+        finish_time = new Date();
+        points = finish_time - start_time / 1000;
+        document.getElementById('points').innerHTML = points;
         document.getElementById('congratulations-screen').style.display = 'block';
+        in_conversation = true;
       }
 
       playerr.body.setZeroVelocity();

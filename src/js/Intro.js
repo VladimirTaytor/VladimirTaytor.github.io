@@ -1,7 +1,7 @@
 /**
  * @author Vladimir Taytor <cetncat@gmail.com>
  */
-let game_dont_touch;
+let game_dont_touch, start_time;
 
 class Intro {
     constructor(options){
@@ -43,6 +43,7 @@ class Intro {
     }
 
     startGame(e) {
+        start_time = new Date();
         game_dont_touch = new Game();
         this.containers.window.style.display = 'none';
         console.log('Start game')
