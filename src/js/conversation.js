@@ -6,13 +6,14 @@ class Conversation {
 
   destroyDog(id) {
     game_dont_touch.destroyDog(id);
-    closeConversation();
+    this.closeConversation();
     MusicInterface.play(MUSIC_NAMES.IN_GAME);
   }
 
   goToLastCheckPoint() {
-    console.log('go back');
+    game_dont_touch.backToStart();
     MusicInterface.play(MUSIC_NAMES.IN_GAME);
+    document.getElementById('conversation').style.display = 'none';
   }
 
   openConversation() {
@@ -75,7 +76,7 @@ class Conversation {
 
     function goToStep2() {
       let messages;
-      if (items['pizza']) {
+      if (true/*items['pizza']*/) {
         messages = [{
           text: phrases["pukich"]["have_pizza"],
           action: goToStep21.bind(this)
