@@ -1,4 +1,5 @@
 const path    = 'src/assets/sprites/';
+var in_conversation = false;
 const config  = {
 
   cell_size: 128,
@@ -165,7 +166,7 @@ class Game{
       this.group.add(enemy);
     }
 
-    this.player = this.game.add.sprite(100, 200, 'pukich');
+    this.player = this.game.add.sprite(100, 300, 'pukich');
     this.group.add(this.player);
 
     this.game.world.setBounds(0, 0, 7680, 5120);
@@ -196,57 +197,60 @@ class Game{
 
   update(){
 
-    this.player.body.setZeroVelocity();
+    if(!in_conversation){
+      this.player.body.setZeroVelocity();
 
-    let animation_changed = false;
+      let animation_changed = false;
 
-    if(this.cursors.left.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x - 25) / 128)] != 0){
-      animation_changed = true;
-      this.player.animations.play('left', config.animations_speed, false);
-      this.player.body.velocity.x = -config.speed;
-    }
-    else if (this.cursors.right.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x + 25) / 128)] != 0){
-      animation_changed = true
-      this.player.animations.play('right', config.animations_speed, false);
-      this.player.body.moveRight(config.speed);
-    }
-
-    if (this.cursors.up.isDown && this.mov_map[Math.floor((this.player.y - 20) / 128)][Math.floor((this.player.x) / 128)] != 0){
-      if(!animation_changed) this.player.animations.play('backward', config.animations_speed, false);
-      this.player.body.moveUp(config.speed - config.ver_speed_coof * config.speed);
-    }
-    else if (this.cursors.down.isDown && this.mov_map[Math.floor((this.player.y + 10) / 128)][Math.floor((this.player.x) / 128)] != 0){
-      if(!animation_changed) this.player.animations.play('forward', config.animations_speed, false);
-      this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
-    }
-
-    for(let i = 0; i < this.enemies.length; i++){
-
-      let enemy = this.enemies[i];
-
-      if(Math.sqrt(Math.pow(this.player.x - enemy.x, 2) + Math.pow(this.player.y - enemy.y, 2)) <= config.enemy_range){
-        this.conversation = new Conversation;
-        this.conversation.startConversation1(enemy.unique_id);
+      if(this.cursors.left.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x - 25) / 128)] != 0){
+        animation_changed = true;
+        this.player.animations.play('left', config.animations_speed, false);
+        this.player.body.velocity.x = -config.speed;
       }
-    }
-
-    var boundsA = this.player.getBounds();
-
-    for(let i = 0; i < this.buildings.length; i++){
-
-      var boundsB = this.buildings[i].getBounds();
-
-      if(Phaser.Rectangle.intersects(boundsA, boundsB) && this.player.y < this.buildings[i].y){
-        this.buildings[i].alpha = 0.65;
-        this.buildings[i].transparented = true;
-      }else if(this.buildings[i].transparented){
-        this.buildings[i].alpha = 1;
+      else if (this.cursors.right.isDown && this.mov_map[Math.floor((this.player.y) / 128)][Math.floor((this.player.x + 25) / 128)] != 0){
+        animation_changed = true
+        this.player.animations.play('right', config.animations_speed, false);
+        this.player.body.moveRight(config.speed);
       }
+
+      if (this.cursors.up.isDown && this.mov_map[Math.floor((this.player.y - 20) / 128)][Math.floor((this.player.x) / 128)] != 0){
+        if(!animation_changed) this.player.animations.play('backward', config.animations_speed, false);
+        this.player.body.moveUp(config.speed - config.ver_speed_coof * config.speed);
+      }
+      else if (this.cursors.down.isDown && this.mov_map[Math.floor((this.player.y + 10) / 128)][Math.floor((this.player.x) / 128)] != 0){
+        if(!animation_changed) this.player.animations.play('forward', config.animations_speed, false);
+        this.player.body.moveDown(config.speed - config.ver_speed_coof * config.speed);
+      }
+
+      for(let i = 0; i < this.enemies.length; i++){
+
+        let enemy = this.enemies[i];
+
+        if(Math.sqrt(Math.pow(this.player.x - enemy.x, 2) + Math.pow(this.player.y - enemy.y, 2)) <= config.enemy_range){
+          in_conversation = true;
+          this.conversation = new Conversation;
+          this.conversation.startConversation1(enemy.unique_id);
+        }
+      }
+
+      var boundsA = this.player.getBounds();
+
+      for(let i = 0; i < this.buildings.length; i++){
+
+        var boundsB = this.buildings[i].getBounds();
+
+        if(Phaser.Rectangle.intersects(boundsA, boundsB) && this.player.y < this.buildings[i].y){
+          this.buildings[i].alpha = 0.65;
+          this.buildings[i].transparented = true;
+        }else if(this.buildings[i].transparented){
+          this.buildings[i].alpha = 1;
+        }
+      }
+
+      this.game.world.bringToTop(this.group);
+
+      this.group.sort('y', Phaser.Group.SORT_ASCENDING);
     }
-
-    this.game.world.bringToTop(this.group);
-
-    this.group.sort('y', Phaser.Group.SORT_ASCENDING);
   }
 
   destroyDog(id){
