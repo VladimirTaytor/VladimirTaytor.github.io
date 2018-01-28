@@ -156,6 +156,7 @@ canvas {
 }
 
 #level-intro .intro-container .intro-boss #intro-boss-text {
+    width: 50%;
     font-size: 24px;
     text-align: left;
     color: #A2ABB1;
@@ -173,15 +174,17 @@ canvas {
 }
 
 #level-intro .intro-map {
-    width: 100%;
+    width: 200px;
     overflow: auto;
+    align: left;
 }
 
 #level-intro .intro-map #intro-map-icon {
     margin: 0 auto;
     width: 200px;
     height: 200px;
-    display: block;
+    display: inline-block;
+    align: left;
 }
 
 #level-intro .controls {
@@ -192,7 +195,7 @@ canvas {
 
 #level-intro #start-game-button {
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 100px;
     font-family: Righteous, serif;
     color: #A2ABB1;
 }
