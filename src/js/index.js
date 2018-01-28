@@ -4,7 +4,8 @@
 var intro = new Intro({level:1});
 
 var items = {
-  pizza: false
+  pizza: false,
+  snake: false
 }
 
 const MUSIC_NAMES = {
