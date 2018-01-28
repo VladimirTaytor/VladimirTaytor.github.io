@@ -75,7 +75,7 @@ class Conversation {
 
     function goToStep2() {
       let messages;
-      if (true/*items['pizza']*/) {
+      if (items['pizza']) {
         messages = [{
           text: phrases["pukich"]["have_pizza"],
           action: goToStep21.bind(this)
